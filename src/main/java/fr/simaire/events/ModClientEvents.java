@@ -5,6 +5,8 @@ import fr.simaire.rgpio.Rgpio;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -26,39 +28,23 @@ public class ModClientEvents {
     @SubscribeEvent
     public static void dommage(LivingDamageEvent event) {
 
-        LivingEntity player = event.getEntityLiving();
+        //LivingEntity player = event.getEntityLiving();
 
         //Rgpio.LOGGER.info("ACCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCIYON OK");
 
+        fr.simaire.rgpio.send.led();
 
 
-            final String serverHost = "192.168.1.40";
 
-            Socket socketOfClient = null;
-            BufferedWriter os = null;
+    }
 
-            try {
-                socketOfClient = new Socket(serverHost, 5566);
-                os = new BufferedWriter(new OutputStreamWriter(socketOfClient.getOutputStream()));
+    @SubscribeEvent
+    public  static void jump(LivingEvent.LivingJumpEvent event) {
+        LivingEntity player = event.getEntityLiving();
 
-
-            } catch (IOException e) {
-                System.err.println("Couldn't get I/O for the connection to " + serverHost);
-                return;
-            }
-
-            try {
-
-                os.write("led");
-
-                os.close();
-                socketOfClient.close();
-
-            } catch (IOException e) {
-                System.err.println("IOException:  " + e);
-            }
-
-
+        if (player.getMainHandItem().getItem() == Items.STICK) {
+            fr.simaire.rgpio.send.song();
+        }
 
     }
 
