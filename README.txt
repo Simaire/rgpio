@@ -4,3 +4,6 @@ Rgpio est un mod minecraft 1.18.2 qui permet de controller les pin gpio de son r
 
 Version mc: 1.18.2
 Version Forge: forge-1.18.2-40.1.51
+
+need help ?
+https://discord.gg/KwVsQYPY2e
